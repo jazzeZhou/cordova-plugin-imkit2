@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="io.rong.imkit" version="0.0.1"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>ImKit</name>
+  <description>talk</description>
+
+    <!--<preference name="APP_KEY" />-->
+     <preference name="APP_KEY" default="e0x9wycfedryq" />
+
+  <js-module name="ImKit" src="www/ImKit.js">
+    <clobbers target="window.plugins.ImKit"/>
+  </js-module>
+  <!-- android -->
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="ImKit">
+        <param name="android-package" value="com.rong.imkit.ImKit"/>
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/ImKit.java" target-dir="src/com/rong/imkit"/>
+    <source-file src="src/android/com/rongim" target-dir="src/com"/>
+
+      <!--新增-->
+      <framework src="src/android/myimkit.gradle" custom="true" type="gradleReference"/>
+      <source-file src="src/android/lib/IMKit_1-release.aar" target-dir="libs"/>
+      <source-file src="src/android/lib/IMLib_1-release.aar" target-dir="libs"/>
+
+      <source-file src="src/android/res/drawable-hdpi/back_green.png" target-dir="res/drawable-hdpi"/>
+
+
+      <source-file src="src/android/res/layout/activity_main.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/layout/bar_title.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/layout/conversation.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/layout/conversationlist.xml" target-dir="res/layout"/>
+
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		<uses-permission android:name="android.permission.INTERNET" />
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+		<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+		<!-- 获取机型信息权限 -->
+		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+		<!-- 录音 -->
+		<uses-permission android:name="android.permission.RECORD_AUDIO" />
+		<uses-permission android:name="android.permission.GET_TASKS" />
+		<uses-permission android:name="android.permission.WAKE_LOCK" />
+		<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+		<uses-permission android:name="android.permission.VIBRATE" />
+		<uses-permission android:name="android.permission.CAMERA" />
+		<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+		<uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+		<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+
+        <activity android:name="io.rong.imkit.plugin.location.AMapLocationActivity"
+                  android:theme="@style/Theme.AppCompat.Light"/>
+
+        <activity android:name="io.rong.imkit.plugin.location.AMapPreviewActivity"
+                  android:theme="@style/Theme.AppCompat.Light"/>
+
+        <activity android:name="io.rong.imkit.plugin.location.AMapRealTimeActivity"
+                  android:theme="@style/Theme.AppCompat.Light"/>
+
+        <activity
+                android:name="io.rong.imkit.plugin.image.PictureSelectorActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.Light"/>
+
+        <activity
+                android:name="io.rong.imkit.plugin.image.PicturePreviewActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.Light"/>
+
+        <!-- 开发者可以修改 RongBaseActivity 的 rc_base_activity_layout 布局文件调整 actionbar-->
+        <activity
+                android:name="io.rong.imkit.tools.RongWebviewActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="io.rong.imkit.intent.action.webview" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+                android:name="io.rong.imkit.widget.provider.TakingPicturesActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.Light"/>
+
+        <activity
+                android:name="io.rong.imkit.activity.PicturePagerActivity"
+                android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="io.rong.imkit.intent.action.picturepagerview" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+                android:name="io.rong.imkit.mention.MemberMentionedActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:windowSoftInputMode="adjustPan|stateHidden"
+                android:theme="@style/Theme.AppCompat.Light"/>
+        <activity android:name="io.rong.imkit.activity.FileManagerActivity"
+                  android:theme="@style/Theme.AppCompat.Light"/>
+        <activity android:name="io.rong.imkit.activity.FileListActivity"
+                  android:theme="@style/Theme.AppCompat.Light"/>
+        <activity android:name="io.rong.imkit.activity.FilePreviewActivity"
+                  android:theme="@style/Theme.AppCompat.Light"/>
+
+        <!-- 此部分代码需要移植到您的 app 下的 manifest，并且 authorities 指定您的包名。例如：com.android.FileProvider -->
+        <!-- 否则使用拍照功能时，会崩溃 -->
+        <!--<provider-->
+        <!--android:name="android.support.v4.content.FileProvider"-->
+        <!--android:authorities="包名.FileProvider"-->
+        <!--android:grantUriPermissions="true"-->
+        <!--android:exported="false">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/rc_file_path"/>-->
+        <!--</provider>-->
+
+        <activity android:name="com.rongim.talk.module.activity.RongTabsActivity"
+                  android:theme="@style/Theme.AppCompat.Light">
+        </activity>
+
+        <activity android:name="com.rongim.talk.module.activity.ConversationListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+                  android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="$PACKAGE_NAME"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.rongim.talk.module.activity.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+                  android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="$PACKAGE_NAME"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <!-- imlib config begin -->
+        <meta-data
+                android:name="RONG_CLOUD_APP_KEY"
+                android:value="$APP_KEY" />
+
+        <service
+                android:name="io.rong.imlib.ipc.RongService"
+                android:exported="true"
+                android:process=":ipc" />
+
+        <service android:name="io.rong.imlib.ReConnectService"
+                 android:exported="true"/>
+
+        <receiver android:name="io.rong.imlib.ConnectChangeReceiver"
+                  android:exported="true"/>
+
+        <receiver
+                android:name="io.rong.imlib.HeartbeatReceiver"
+                android:process=":ipc" />
+        <!-- imlib config end -->
+
+    </config-file>
+
+
+    <config-file target="res/values/strings.xml" parent="/*">
+
+    </config-file>
+
+  </platform>
+
+<platform name="ios">
+      <config-file target="config.xml" parent="/*">
+          <feature name="ImKit">
+              <param name="ios-package" value="ImKit"/>
+          </feature>
+      </config-file>
+      <header-file src="src/ios/ImKit.h" target-dir="src/ios" />
+    <header-file src="src/ios/RongIm/HttpUtils.h" target-dir="src/ios" />
+    <header-file src="src/ios/RongIm/RIChatsViewController.h" target-dir="src/ios" />
+    <header-file src="src/ios/RongIm/RIChatViewController.h" target-dir="src/ios" />
+    <header-file src="src/ios/RongIm/RongImUtls.h" target-dir="src/ios" />
+
+      <source-file src="src/ios/ImKit.m" target-dir="src/ios" />
+      <source-file src="src/ios/RongIm/HttpUtils.m" target-dir="src/ios" />
+      <source-file src="src/ios/RongIm/RIChatsViewController.m" target-dir="src/ios" />
+      <source-file src="src/ios/RongIm/RIChatViewController.m" target-dir="src/ios" />
+      <source-file src="src/ios/RongIm/RongImUtls.m" target-dir="src/ios" />
+
+      <framework src="src/ios/RongIm/RongIMKit.framework" custom="true" />
+      <resource-file src="src/ios/RongIm/RongCloud.bundle" />
+
+      <source-file src="src/ios/RongIm/libopencore-amrnb.a" framework="true" />
+      <resource-file src="src/ios/RongIm/Emoji.plist" />
+      <resource-file src="src/ios/RongIm/RCConfig.plist" />
+    <!--<resource-file src="src/ios/RongIm/en.lproj/RongCloudKit.strings" />-->
+    <resource-file src="src/ios/RongIm/zh-Hans.lproj/RongCloudKit.strings" />
+      <framework src="src/ios/RongIm/RongIMLib.framework" custom="true" />
+
+
+      <framework src="AssetsLibrary.framework" />
+      <framework src="AudioToolbox.framework" />
+      <framework src="AVFoundation.framework" />
+      <framework src="CFNetwork.framework" />
+      <framework src="CoreAudio.framework" />
+      <framework src="CoreGraphics.framework" />
+      <framework src="CoreLocation.framework" />
+      <framework src="CoreMedia.framework" />
+      <framework src="CoreTelephony.framework" />
+      <framework src="CoreVideo.framework" />
+      <framework src="ImageIO.framework" />
+      <framework src="libc++.tbd" />
+      <framework src="libc++abi.tbd" />
+      <framework src="libsqlite3.tbd" />
+      <framework src="libstdc++.tbd" />
+      <framework src="libxml2.tbd" />
+      <framework src="libz.tbd" />
+      <framework src="MapKit.framework" />
+      <framework src="OpenGLES.framework" />
+      <framework src="QuartzCore.framework" />
+      <framework src="SystemConfiguration.framework" />
+      <framework src="UIKit.framework" />
+      <framework src="Photos.framework" />
+      <framework src="SafariServices.framework" />
+      <framework src="CoreMotion.framework" />
+      <framework src="VideoToolbox.framework" />
+
+      <config-file target="*RCConfig.plist" parent="RONGC_APP_KEY">
+            <string>$APP_KEY</string>
+      </config-file>
+  </platform>
+
+</plugin>

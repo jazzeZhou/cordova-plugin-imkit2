@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="#23c2aa"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="10dp"
+        android:text="返回"
+        android:textSize="16dp"
+        android:textColor="#FFFFFF"
+        android:drawableLeft="@drawable/back_green"
+        />
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textSize="16dp"
+        android:text="会话"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="添加"/>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+repositories {	//++新增代码
+    flatDir {	//++新增代码
+        dirs 'libs'	//++新增代码
+    }			//++新增代码
+}
+dependencies {
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24+'
+    compile 'com.alibaba:fastjson:1.1.54.android'
+    compile 'com.squareup.okhttp:okhttp:2.7.0'
+    compile (name:'IMKit_1-release',ext:'aar')    //aar插件
+    compile (name:'IMLib_1-release',ext:'aar')    //aar插件
+}
+
