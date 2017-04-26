@@ -27,6 +27,10 @@ import org.apache.cordova.*;
  * Created by jazzeZhou on 16/11/17.
  */
 public class BaseUtils {
+    
+    public static CallbackContext chatCallbackContext = null;
+    public static CallbackContext chatsCallbackContext = null;
+    
 
   public static void init(Context context, final CallbackContext callbackContext) {
     RongIM.init(context);
@@ -133,12 +137,14 @@ public class BaseUtils {
 
   }
 
-  public static void launchChats(Activity context) {
+  public static void launchChats(Activity context,final CallbackContext callbackContext) {
+      chatsCallbackContext = callbackContext;
     Intent intent = new Intent(context, RongTabsActivity.class);
     context.startActivity(intent);
   }
 
-  public static void launchChat(Activity context, String user, String title) {
+  public static void launchChat(Activity context, String user, String title,final CallbackContext callbackContext) {
+      chatCallbackContext = callbackContext;
     RongIM.getInstance().startPrivateChat(context, user, title);
   }
 

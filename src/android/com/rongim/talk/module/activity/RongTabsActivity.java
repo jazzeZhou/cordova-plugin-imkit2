@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import com.rongim.talk.BaseUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,5 +101,13 @@ public class RongTabsActivity extends FragmentActivity {
 
     };
 
+    @Override
+    protected void onDestroy() {
+        if (BaseUtils.chatsCallbackContext != null) {
+        			BaseUtils.chatsCallbackContext.success("");
+        			BaseUtils.chatsCallbackContext = null;
+        }
+        super.onDestroy();
+    }
 
 }

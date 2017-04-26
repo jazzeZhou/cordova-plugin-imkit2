@@ -47,11 +47,11 @@ public class ImKit extends CordovaPlugin {
     } else if (ACTION_EXIT.equals(action)) {
       BaseUtils.exit(mCordova.getActivity());
     } else if (ACTION_LAUNCH_CHATS.equals(action)) {
-      BaseUtils.launchChats(mCordova.getActivity());
+      BaseUtils.launchChats(mCordova.getActivity(),callbackContext);
     } else if (ACTION_LAUNCH_CHAT.equals(action)) {
       String user = args.getString(0);
       String title = args.getString(1);
-      BaseUtils.launchChat(mCordova.getActivity(), user, title);
+      BaseUtils.launchChat(mCordova.getActivity(), user, title,callbackContext);
     }
     return true;
   }

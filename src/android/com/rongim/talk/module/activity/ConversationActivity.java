@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import com.rongim.talk.BaseUtils;
 
 import io.rong.imlib.model.Conversation;
 
@@ -41,6 +42,15 @@ public class ConversationActivity extends FragmentActivity {
                 finish();
             }
         });
+    }
+
+		@Override
+    protected void onDestroy() {
+    		if (BaseUtils.chatCallbackContext != null) {
+        			BaseUtils.chatCallbackContext.success("");
+        			BaseUtils.chatCallbackContext = null;
+        }
+        super.onDestroy();
     }
 
 }
