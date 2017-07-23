@@ -48,6 +48,7 @@ public class BaseUtils {
         ImMessage im = new ImMessage();
         im.id = message.getSenderUserId();
         im.type = message.getObjectName();
+        im.conversationType = message.getConversationType().getValue();
         if (im.type.equals("RC:TxtMsg")) {
           TextMessage text = (TextMessage) message.getContent();
           im.content = text.getContent();
@@ -109,6 +110,7 @@ public class BaseUtils {
           for (Conversation item: conversations) {
             ImMessage im = new ImMessage();
             im.id = item.getTargetId();
+            im.conversationType = item.getConversationType().getValue();
             im.type = item.getObjectName();
             im.unreadMessageCount = item.getUnreadMessageCount();
             if (im.type.equals("RC:TxtMsg")) {
@@ -147,5 +149,14 @@ public class BaseUtils {
       chatCallbackContext = callbackContext;
     RongIM.getInstance().startPrivateChat(context, user, title);
   }
+    
+    public static void launchSystem(Activity context, String user, String title,final CallbackContext callbackContext) {
+        chatCallbackContext = callbackContext;
+        RongIM.getInstance().startConversation(context, Conversation.ConversationType.SYSTEM, user, title);
+    }
+
+	public static void removeConversation(Activity context, String user, int type,final CallbackContext callbackContext) {
+	    RongIM.getInstance().removeConversation(Conversation.ConversationType.setValue(type), user, null);
+	}
 
 }

@@ -103,6 +103,12 @@
     NSString *userId = [command argumentAtIndex:0 withDefault:nil];
     [_rongimUtls launchChat:userId success: backFunc];
 }
+
+- (void)LaunchSystem:(CDVInvokedUrlCommand *)command {
+    bcmd = command;
+    NSString *userId = [command argumentAtIndex:0 withDefault:nil];
+    [_rongimUtls launchSystem:userId success: backFunc];
+}
     
 - (void)Exit:(CDVInvokedUrlCommand *)command {
     [_rongimUtls exit];
@@ -123,6 +129,13 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:content];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
+}
+
+- (void)RemoveConversation:(CDVInvokedUrlCommand *)command {
+	NSString *userId = [command argumentAtIndex:0 withDefault:nil];
+	NSString *type = [command argumentAtIndex:1 withDefault:nil];
+    int conversationType = [type intValue];
+    [_rongimUtls removeConversation:conversationType addUserId:userId];
 }
     
 @end

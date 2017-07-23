@@ -22,6 +22,12 @@ ImKit.prototype.LaunchChats = function (success, error) {
 ImKit.prototype.LaunchChat = function (str1, str2, success, error) {
   cordova.exec(success, error, 'ImKit', 'LaunchChat', [str1,str2]);
 }
+ImKit.prototype.LaunchSystem = function (str1, str2, success, error) {
+  cordova.exec(success, error, 'ImKit', 'LaunchSystem', [str1,str2]);
+}
+ImKit.prototype.RemoveConversation = function (str1, str2, success, error) {
+  cordova.exec(success, error, 'ImKit', 'RemoveConversation', [str1,str2]);
+}
 
 ImKit.install = function () {
   if (!window.plugins) {

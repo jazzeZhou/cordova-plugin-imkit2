@@ -26,8 +26,10 @@ void backFunc(NSString *content);
 - (void)Connect:(CDVInvokedUrlCommand *)command;
 - (void)LaunchChats:(CDVInvokedUrlCommand *)command;
 - (void)LaunchChat:(CDVInvokedUrlCommand *)command;
+- (void)LaunchSystem:(CDVInvokedUrlCommand *)command;
 - (void)Exit:(CDVInvokedUrlCommand *)command;
 - (void)GetUserInfo:(CDVInvokedUrlCommand *)command;
 - (void)GetConversationList:(CDVInvokedUrlCommand *)command;
+- (void)RemoveConversation:(CDVInvokedUrlCommand *)command;
 
 @end

@@ -35,6 +35,8 @@ typedef void (*RecvMsgFunc)(NSString *content);
 -(void)getUserInfo: (NSString *)userid success: (void (^)(NSString *content))successBlock;
 -(void)launchChats: (RecvMsgFunc *)func;
 -(void)launchChat: (NSString *)userId success: (RecvMsgFunc *)func;
+-(void)launchSystem: (NSString *)userId success: (RecvMsgFunc *)func;
+-(void)removeConversation: (RCConversationType)conversationType addUserId: (NSString *)userId;
 -(void)exit;
     
 @end

@@ -121,6 +121,7 @@
         NSDictionary *itemInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                   conversation.targetId, @"id",
                                   conversation.objectName, @"type",
+                                  [NSNumber numberWithInt:conversation.conversationType], @"conversationType",
                                   [NSNumber numberWithInt:conversation.unreadMessageCount], @"unreadMessageCount",
                                   sContent, @"content",
                                   lasttime, @"lastTime",
@@ -163,6 +164,26 @@
     [self.appRootVC presentViewController:nav animated:NO completion:nil];
     
 }
+
+-(void)launchSystem: (NSString *)userId success: (RecvMsgFunc *)func {
+    NSLog(@"launchSystem: %@", userId);
+    _backFunc = func;
+    
+    RIChatViewController *chat = [[RIChatViewController alloc] init];
+    chat.conversationType = ConversationType_SYSTEM;
+    chat.targetId = userId;
+    chat.title = @"会话";
+    
+    chat.navigationItem.leftBarButtonItem = _barButton;
+    
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    self.appRootVC = window.rootViewController;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:chat];
+    [nav.navigationBar setBarTintColor: _barColor];
+    [self.appRootVC presentViewController:nav animated:NO completion:nil];
+    
+}
+    
     
 -(void)launchChats: (RecvMsgFunc *)func {
     _backFunc = func;
@@ -182,6 +203,10 @@
     
 -(void)exit {
     [[RCIM sharedRCIM] logout];
+}
+
+-(void)removeConversation: (NSInteger)conversationType addUserId: (NSString *)userId {
+    [[RCIMClient sharedRCIMClient] removeConversation:conversationType targetId:userId];
 }
     
 @end

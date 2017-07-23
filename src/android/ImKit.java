@@ -19,7 +19,9 @@ public class ImKit extends CordovaPlugin {
   public static final String ACTION_EXIT = "Exit";
   public static final String ACTION_LAUNCH_CHATS = "LaunchChats";
   public static final String ACTION_LAUNCH_CHAT = "LaunchChat";
+  public static final String ACTION_LAUNCH_SYSTEM = "LaunchSystem";
   public static final String ACTION_RECIEVE_MESSAGE = "RecieveMessage";
+  public static final String ACTION_RECIEVE_REMOVECONVERSATION = "RemoveConversation";
 
   private static CallbackContext mCallbackContext;
   private static CordovaInterface mCordova = null;
@@ -52,6 +54,14 @@ public class ImKit extends CordovaPlugin {
       String user = args.getString(0);
       String title = args.getString(1);
       BaseUtils.launchChat(mCordova.getActivity(), user, title,callbackContext);
+    } else if (ACTION_LAUNCH_SYSTEM.equals(action)) {
+      String user = args.getString(0);
+      String title = args.getString(1);
+      BaseUtils.launchSystem(mCordova.getActivity(), user, title,callbackContext);
+    } else if (ACTION_RECIEVE_REMOVECONVERSATION.equals(action)) {
+      String user = args.getString(0);
+      int type = args.getInt(1);
+      BaseUtils.removeConversation(mCordova.getActivity(), user, type,callbackContext);
     }
     return true;
   }
