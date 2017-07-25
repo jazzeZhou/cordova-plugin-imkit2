@@ -37,7 +37,7 @@
             break;
         }
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:retHttp options:NSJSONReadingMutableLeaves error:nil];
-        if (responseDic == nil||[responseDic objectForKey:@"success"] == nil||![responseDic objectForKey:@"success"]) {
+        if (responseDic == nil||[responseDic objectForKey:@"success"] == nil||![[responseDic objectForKey:@"success"] boolValue]) {
             break;
         }
         dic = [responseDic objectForKey:@"data"];
@@ -64,14 +64,14 @@
         
         NSString *sPortrait = [NSString stringWithFormat:@"%@", [resData objectForKey:@"portrait"]];
         NSString *sName = [NSString stringWithFormat:@"%@", [resData objectForKey:@"name"]];
-        if (sName == nil||sName.length == 0) {
+        if (sName == nil||sName.length == 0||[sName isEqualToString:@"<null>"]) {
             sName = [NSString stringWithFormat:@"%@", [resData objectForKey:@"username"]];
         }
         
-        if (sPortrait == nil) {
+        if (sPortrait == nil||sPortrait.length == 0||[sPortrait isEqualToString:@"<null>"]) {
             sPortrait = @"";
         }
-        if (sName == nil) {
+        if (sName == nil||sName.length == 0||[sName isEqualToString:@"<null>"]) {
             sName = @"";
         }
         
